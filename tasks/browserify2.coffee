@@ -14,7 +14,7 @@ module.exports = (grunt)->
     bundle.bundle {debug}, (err, src)->
 
       if not server and not compile
-        grunt.log.error()
+        grunt.log.error('either server or compile options must be defined.')
         done()
 
       if server

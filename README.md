@@ -28,7 +28,7 @@ grunt.initConfig({
     entry: './build/entry.js',
     mount: '/application.js',
     server: './build/server.js',
-    debug: yes,
+    debug: true,
     compile: './public/application.js'
   }
 })
