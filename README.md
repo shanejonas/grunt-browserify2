@@ -25,13 +25,12 @@ In your project's Gruntfile, add a section named `browserify2` to the data objec
 ```js
 grunt.initConfig({
   browserify2: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+    entry: './build/entry.js',
+    mount: '/application.js',
+    server: './build/server.js',
+    debug: yes,
+    compile: './public/application.js'
+  }
 })
 ```
 
@@ -63,18 +62,6 @@ Default value: `false`
 
 A boolean value that determines whether to include source maps for debugging
 
-### Usage Examples
-```js
-grunt.initConfig({
-  browserify2: {
-    entry: './build/entry.js',
-    mount: '/application.js',
-    server: './build/server.js',
-    debug: yes,
-    compile: './public/application.js'
-  }
-})
-```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
