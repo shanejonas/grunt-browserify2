@@ -37,12 +37,6 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
 #### entry
 Type: `String`
 Default value: `'.'`
