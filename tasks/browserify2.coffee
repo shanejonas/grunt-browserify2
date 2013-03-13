@@ -6,9 +6,13 @@ module.exports = (grunt)->
     required = ['entry', 'mount']
     done = @async()
     browserify = require 'browserify'
-    {entry, mount, server, debug, compile} = grunt.config.get(@name)
+    {entry, mount, server, debug, compile, beforeHook} = grunt.config.get(@name)
     bundle = browserify entry
     grunt.config.requires("#{@name}.#{r}") for r in required
+
+
+    if beforeHook
+      beforeHook.call this, bundle
 
     # build bundle
     bundle.bundle {debug}, (err, src)->

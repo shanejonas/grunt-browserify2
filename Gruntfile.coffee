@@ -8,6 +8,8 @@ module.exports = (grunt)->
       mount: '/application.js'
       debug: yes
       compile: './build/application.js'
+      beforeHook: (bundle)->
+        console.log 'in before hook'
       # server: './build/server.js'
 
   @loadTasks 'tasks'
