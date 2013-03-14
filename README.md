@@ -56,6 +56,27 @@ A string value that is used to determine where to save your output file
 from browserify. if the `server` option is specified then it will create an
 express server and compile the file.
 
+#### beforeHook
+Type: `Function`
+Default value: `noop`
+
+A function that gets called with the browserify `bundle`. This is where
+you should be using the new plugins for browserify v2.
+
+Example:
+```js
+grunt.initConfig({
+  browserify2: {
+    entry: './build/entry.js',
+    compile: './public/application.js',
+    beforeHook: function(bundle){
+      bundle.transform(handleify)
+    }
+  }
+});
+
+```
+
 #### debug
 Type: `Boolean`
 Default value: `false`
