@@ -5,7 +5,7 @@ helper =
 
 module.exports = (grunt)->
   @registerTask 'browserify2', 'commonjs modulez', ->
-    required = ['entry', 'mount']
+    required = ['entry']
     done = @async()
     browserify = require 'browserify'
     {entry, mount, server, debug, compile, beforeHook} = grunt.config.get(@name)
@@ -17,7 +17,6 @@ module.exports = (grunt)->
 
     # build bundle
     bundle.bundle {debug}, (err, src)->
-      console.log 'src=', src
       if (err) then throw err
 
       if not server and not compile
