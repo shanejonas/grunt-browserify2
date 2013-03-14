@@ -21,18 +21,29 @@ grunt.loadNpmTasks('grunt-browserify2');
 
 ### Overview
 In your project's Gruntfile, add a section named `browserify2` to the data object passed into `grunt.initConfig()`.
+This task is a now a MultiTask, which means it can run different tasks based on a namespace. ex:
 
 ```js
 grunt.initConfig({
   browserify2: {
-    entry: './build/entry.js',
-    mount: '/application.js',
-    server: './build/server.js',
-    debug: true,
-    compile: './public/application.js'
+    dev: {
+      entry: './build/entry.js',
+      mount: '/application.js',
+      server: './build/server.js',
+      debug: true
+    }
+    compile: {
+      entry: './build/entry.js',
+      compile: './public/application.js'
+    }
   }
 })
+grunt.loadNpmTasks('grunt-browserify2')
+grunt.registerTask('default', 'browserify:dev')
+grunt.registerTask('compile', 'browserify:compile')
 ```
+running `grunt` will start your dev server and running `grunt compile`
+will compile the build
 
 ### Options
 
@@ -67,10 +78,12 @@ Example:
 ```js
 grunt.initConfig({
   browserify2: {
-    entry: './build/entry.js',
-    compile: './public/application.js',
-    beforeHook: function(bundle){
-      bundle.transform(handleify)
+    main: {
+      entry: './build/entry.js',
+      compile: './public/application.js',
+      beforeHook: function(bundle){
+        bundle.transform(handleify)
+      }
     }
   }
 });

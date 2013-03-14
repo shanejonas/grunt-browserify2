@@ -4,13 +4,14 @@ helper =
     require path.resolve(process.cwd(), _path)
 
 module.exports = (grunt)->
-  @registerTask 'browserify2', 'commonjs modules in the browser', ->
-    required = ['entry']
+  @registerMultiTask 'browserify2', 'commonjs modules in the browser', ->
     done = @async()
     browserify = require 'browserify'
-    {entry, mount, server, debug, compile, beforeHook} = grunt.config.get(@name)
+    config = grunt.config.get(@name)
+    targetConfig = config[@target]
+    {entry, mount, server, debug, compile, beforeHook} = targetConfig
     bundle = browserify path.resolve(process.cwd(), entry)
-    grunt.config.requires("#{@name}.#{r}") for r in required
+    grunt.config.requires("#{@name}.#{@target}.entry")
 
     if beforeHook
       beforeHook.call this, bundle
