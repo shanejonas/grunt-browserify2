@@ -1,5 +1,3 @@
-path = require 'path'
-
 module.exports = (grunt)->
 
   @initConfig

@@ -1,5 +1,7 @@
-fs = require 'fs'
 path = require 'path'
+helper =
+  require: (_path)->
+    require path.resolve(process.cwd(), _path)
 
 module.exports = (grunt)->
   @registerTask 'browserify2', 'commonjs modulez', ->
@@ -7,15 +9,16 @@ module.exports = (grunt)->
     done = @async()
     browserify = require 'browserify'
     {entry, mount, server, debug, compile, beforeHook} = grunt.config.get(@name)
-    bundle = browserify entry
+    bundle = browserify path.resolve(process.cwd(), entry)
     grunt.config.requires("#{@name}.#{r}") for r in required
-
 
     if beforeHook
       beforeHook.call this, bundle
 
     # build bundle
     bundle.bundle {debug}, (err, src)->
+      console.log 'src=', src
+      if (err) then throw err
 
       if not server and not compile
         grunt.log.error('either server or compile options must be defined.')
@@ -31,8 +34,9 @@ module.exports = (grunt)->
             res.end(src)
           else
             next()
-        app = require(path.resolve server)
+        app = helper.require server
         app.use express_plugin
 
-      if compile then fs.writeFile compile, src, (err)->
+      if compile
+        grunt.file.write path.resolve(process.cwd(), compile), src
         done()
