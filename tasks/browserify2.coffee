@@ -4,7 +4,7 @@ helper =
     require path.resolve(process.cwd(), _path)
 
 module.exports = (grunt)->
-  @registerTask 'browserify2', 'commonjs modulez', ->
+  @registerTask 'browserify2', 'commonjs modules in the browser', ->
     required = ['entry']
     done = @async()
     browserify = require 'browserify'
@@ -17,10 +17,10 @@ module.exports = (grunt)->
 
     # build bundle
     bundle.bundle {debug}, (err, src)->
-      if (err) then throw err
+      if err? then grunt.log.error err
 
       if not server and not compile
-        grunt.log.error('either server or compile options must be defined.')
+        grunt.log.error 'either server or compile options must be defined.'
         done()
 
       if server
@@ -38,4 +38,6 @@ module.exports = (grunt)->
 
       if compile
         grunt.file.write path.resolve(process.cwd(), compile), src
+        msg = "File written to: #{grunt.log.wordlist [compile], color: 'cyan'}"
+        grunt.log.writeln msg
         done()
