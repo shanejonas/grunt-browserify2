@@ -34,5 +34,8 @@ module.exports = (grunt)->
         app = require(path.resolve server)
         app.use express_plugin
 
-      if compile then fs.writeFile compile, src, (err)->
+      if compile
+        grunt.file.write compile, src
+        msg = "File written to: #{grunt.log.wordlist [compile], color: 'cyan'}"
+        grunt.log.writeln msg
         done()
