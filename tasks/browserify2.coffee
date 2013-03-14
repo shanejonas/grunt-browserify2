@@ -16,6 +16,7 @@ module.exports = (grunt)->
 
     # build bundle
     bundle.bundle {debug}, (err, src)->
+      if err? then grunt.log.error err
 
       if not server and not compile
         grunt.log.error('either server or compile options must be defined.')
@@ -35,4 +36,5 @@ module.exports = (grunt)->
         app.use express_plugin
 
       if compile then fs.writeFile compile, src, (err)->
+        if err? then grunt.log.error err
         done()
