@@ -37,6 +37,6 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "browserify": "~2.5.1"
+    "browserify": "~2.6.1"
   }
 }
