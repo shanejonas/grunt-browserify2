@@ -10,7 +10,7 @@ module.exports = (grunt)->
     config = grunt.config.get(@name)
     targetConfig = config[@target]
     {entry, mount, server, debug, compile, beforeHook} = targetConfig
-    bundle = browserify path.resolve(process.cwd(), entry)
+    bundle = browserify entry
     grunt.config.requires("#{@name}.#{@target}.entry")
 
     if beforeHook
