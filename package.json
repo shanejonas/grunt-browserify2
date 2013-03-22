@@ -1,7 +1,7 @@
 {
   "name": "grunt-browserify2",
   "description": "a grunt task that uses browserify v2 and optionally express",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/shanejonas/grunt-browserify2",
   "author": {
     "name": "Shane Jonas",
