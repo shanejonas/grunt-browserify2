@@ -9,7 +9,7 @@ module.exports = (grunt)->
     browserify = require 'browserify'
     config = grunt.config.get(@name)
     targetConfig = config[@target]
-    {entry, mount, server, debug, compile, beforeHook} = targetConfig
+    {entry, mount, server, debug, compile, beforeHook, afterHook} = targetConfig
     bundle = browserify entry
     grunt.config.requires("#{@name}.#{@target}.entry")
 
@@ -23,6 +23,9 @@ module.exports = (grunt)->
       if not server and not compile
         grunt.log.error 'either server or compile options must be defined.'
         done()
+
+      if afterHook
+        src = afterHook.call this, src
 
       if server
         time = new Date()
