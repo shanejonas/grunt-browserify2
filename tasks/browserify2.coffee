@@ -11,6 +11,7 @@ module.exports = (grunt)->
     targetConfig = config[@target]
     {entry, mount, server, debug, compile, beforeHook} = targetConfig
     bundle = browserify entry
+    bundle.require( val, { expose: key } ) for key, val of exposed
     grunt.config.requires("#{@name}.#{@target}.entry")
 
     if beforeHook
