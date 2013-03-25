@@ -3,6 +3,20 @@ helper =
   require: (_path)->
     require path.resolve(process.cwd(), _path)
 
+expose = (grunt, bundle, key, val) =>
+  if key isnt 'files'
+    bundle.require( val, { expose: key } )
+  else
+    for fileOpts in val
+      fileOpts.expand = true
+      fileOpts.flatten = true
+      fileOpts.dest = fileOpts.dest || ''
+      # fileOpts.cwd must be specified
+      # fileOpts.src must be specified
+
+      files = grunt.file.expandMapping fileOpts.src, fileOpts.dest, fileOpts
+      bundle.require( './' + file.src, { expose: file.dest.substr(0, file.dest.indexOf('.')) } ) for file in files
+
 module.exports = (grunt)->
   @registerMultiTask 'browserify2', 'commonjs modules in the browser', ->
     done = @async()
@@ -11,6 +25,12 @@ module.exports = (grunt)->
     targetConfig = config[@target]
     {entry, mount, server, debug, compile, beforeHook} = targetConfig
     bundle = browserify entry
+
+    exposeOpts = []
+    exposeOpts.push targetConfig.options?.expose if targetConfig.options?.expose
+    exposeOpts.push config.options?.expose if config.options?.expose
+    expose grunt, bundle, key, val for key, val of opt for opt in exposeOpts
+
     grunt.config.requires("#{@name}.#{@target}.entry")
 
     if beforeHook
