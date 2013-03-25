@@ -90,6 +90,20 @@ grunt.initConfig({
 
 ```
 
+`browserify-shim` Example:
+```js
+grunt.initConfig({
+  browserify2: {
+    main: {
+      entry: './build/entry.js',
+      compile: './public/application.js',
+      beforeHook: function(bundle){
+        shim(bundle, {zepto: path: './vendor/zepto', exports: 'Zepto'});
+      }
+    }
+  }
+});
+```
 
 #### afterHook
 Type: `Function`
