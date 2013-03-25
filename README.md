@@ -90,6 +90,36 @@ grunt.initConfig({
 
 ```
 
+
+#### afterHook
+Type: `Function`
+Default value: `noop`
+
+A function that gets called with the browserify `src`. This is where
+you should be using minifiers etc.
+
+Example:
+```js
+grunt.initConfig({
+  browserify2: {
+    dev: {
+      entry: './build/entry.js',
+      mount: '/application.js',
+      server: './build/server.js',
+      debug: true
+    }
+    compile: {
+      entry: './build/entry.js',
+      compile: './public/application.js'
+      afterHook: function(src){
+        result = uglify.minify(src, fromString: true);
+        return result.code;
+      }
+    }
+  }
+})
+```
+
 #### debug
 Type: `Boolean`
 Default value: `false`
