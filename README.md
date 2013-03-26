@@ -134,6 +134,51 @@ grunt.initConfig({
 })
 ```
 
+#### expose
+Type: `Object`
+Default value: `{}`
+
+An object whose keys will become `require`able module names mapped to their values.
+
+Example:
+```js
+expose: {
+  angular: './libs/angular/angular.js',
+  _: './libs/underscore.js'
+}
+```
+
+This allows you to use `require('angular')` and `require('_')` in your modules, rather than having to 
+provide the relative paths.
+
+#### expose.files
+Type: `Array`
+Default value: `[]`
+
+An array of file patterns that will be passed to `grunt.file.expandMapping()` to expose sets of files
+as simplified names/paths.
+
+Example:
+```js
+expose: {
+  files: [
+  	{
+			cwd: './vendor/',
+			src: ['**/*.js']
+		}
+	]
+}
+```
+
+This would expose all `.js` files within the vendor directory, at any level, for `require`ing by name.
+
+```vendor/angular/angular.js``` becomes ```require('angular')```,
+```vendor/underscore.js``` becomes ```require('underscore')```, 
+etc.
+
+Each object in the files array must specify `cwd` and `src` properties, while `dest` is optional.
+For example, adding ```dest: 'lib/'``` to the above would enable ```require("lib/angular")```
+
 #### debug
 Type: `Boolean`
 Default value: `false`
