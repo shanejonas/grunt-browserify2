@@ -39,8 +39,8 @@ grunt.initConfig({
   }
 });
 grunt.loadNpmTasks('grunt-browserify2');
-grunt.registerTask('default', 'browserify:dev');
-grunt.registerTask('compile', 'browserify:compile');
+grunt.registerTask('default', 'browserify2:dev');
+grunt.registerTask('compile', 'browserify2:compile');
 ```
 running `grunt` will start your dev server and running `grunt compile`
 will compile the build
