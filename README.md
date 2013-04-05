@@ -31,16 +31,16 @@ grunt.initConfig({
       mount: '/application.js',
       server: './build/server.js',
       debug: true
-    }
+    },
     compile: {
       entry: './build/entry.js',
       compile: './public/application.js'
     }
   }
-})
-grunt.loadNpmTasks('grunt-browserify2')
-grunt.registerTask('default', 'browserify:dev')
-grunt.registerTask('compile', 'browserify:compile')
+});
+grunt.loadNpmTasks('grunt-browserify2');
+grunt.registerTask('default', 'browserify:dev');
+grunt.registerTask('compile', 'browserify:compile');
 ```
 running `grunt` will start your dev server and running `grunt compile`
 will compile the build
