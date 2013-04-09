@@ -124,9 +124,9 @@ grunt.initConfig({
     }
     compile: {
       entry: './build/entry.js',
-      compile: './public/application.js'
+      compile: './public/application.js',
       afterHook: function(src){
-        result = uglify.minify(src, fromString: true);
+        var result = uglify.minify(src, {fromString: true});
         return result.code;
       }
     }
