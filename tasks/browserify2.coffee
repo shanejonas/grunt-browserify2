@@ -23,15 +23,16 @@ module.exports = (grunt)->
     browserify = require 'browserify'
     config = grunt.config.get(@name)
     targetConfig = config[@target]
-    {entry, mount, server, debug, compile, beforeHook, afterHook} = targetConfig
+
+    options = @options @data
+
+    {entry, mount, server, debug, compile, beforeHook, afterHook} = options
     bundle = browserify entry
 
     exposeOpts = []
     exposeOpts.push targetConfig.options?.expose if targetConfig.options?.expose
     exposeOpts.push config.options?.expose if config.options?.expose
     expose grunt, bundle, key, val for key, val of opt for opt in exposeOpts
-
-    grunt.config.requires("#{@name}.#{@target}.entry")
 
     if beforeHook
       beforeHook.call this, bundle
